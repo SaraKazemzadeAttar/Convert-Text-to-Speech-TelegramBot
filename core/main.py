@@ -1,7 +1,7 @@
 import telebot
 import os
 import logging
-from gtts import gtts
+from gtts import gTTS
 
 logger = telebot.logger
 telebot.logger.setLevel(logging.INFO)
@@ -17,7 +17,8 @@ def send_welcome(message):
 def text_to_Speech(message):
     text = message.text
     file_name = "voices/output.mp3"
-    output = gtts(text = text , lang="en" , tld = 'com.au')
+    output = gTTS (text = text , lang="en" , tld = 'com.au')
+    os.remove(file_name)
     output.save(file_name)
     bot.send_voice(chat_id = message.chat.id , voice = open(file_name, 'rb') , caption = text , reply_to_message_id= message.id)
 bot.infinity_polling()
